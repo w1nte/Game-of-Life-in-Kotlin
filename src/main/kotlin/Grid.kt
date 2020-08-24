@@ -1,11 +1,11 @@
-class Grid(val width: Int, val height: Int) {
+open class Grid(val width: Int, val height: Int) {
     companion object {
         val OUTSIDE = Cell(State.VOID)
     }
 
     private val grid: Array<Array<Cell>> = Array(height) { Array(width) { Cell(State.rand()) } }
 
-    fun cell(x: Int, y: Int): Cell {
+    open fun cell(x: Int, y: Int): Cell {
         if (x in 0 until width && y in 0 until height) {
             return grid[y][x]
         } else {
