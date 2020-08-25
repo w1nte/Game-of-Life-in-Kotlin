@@ -1,15 +1,14 @@
 
-
 fun main(args: Array<String>) {
     val loader = ChunkLoader()
-    val chunk = Chunk(loader, 0, 0, 10, 10)
+    val chunk = Chunk(loader, 0, 0, 80, 30)
     loader.add(chunk)
     val game = Game(chunk)
 
-    for (i in 0..200) {
-        //println("\\033[H\\033[2J")
+    for (i in 0..10000) {
         game.print()
         println()
         game.run()
+        Thread.sleep(30)
     }
 }

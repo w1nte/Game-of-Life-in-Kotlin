@@ -13,12 +13,8 @@ class Game(private var grid: Chunk) {
 
             newCell.state = State.DEAD
 
-            if (cell.state == State.DEAD && aliveNeighbours == 3) {
-                newCell.state = State.ALIVE
-            } else if (cell.state == State.ALIVE) {
-                if (aliveNeighbours in 2..3) {
-                    newCell.state = State.ALIVE
-                }
+            if (aliveNeighbours == 3 || (aliveNeighbours == 2 && cell.state == State.ALIVE)) {
+                newCell.state = State.ALIVE;
             }
         }
         grid = newGrid;
