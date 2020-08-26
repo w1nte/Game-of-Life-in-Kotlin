@@ -1,27 +1,30 @@
-class Game(private var grid: Chunk) {
+class Game {
 
-    fun run() {
-        val loader = ChunkLoader()
-        val newGrid = Chunk(loader, grid.x, grid.y, grid.width, grid.height)
-        loader.add(newGrid)
+    fun next(world: World): World {
+        val nextWorld = World()
 
-        for (y in 0 until grid.height) for (x in 0 until grid.width) {
-            val cell = grid.cell(x, y)
-            val aliveNeighbours = grid.aliveNeighbours(x, y)
+        for (chunk in world.chunks()) {
+            val newChunk = Chunk(nextWorld, chunk.x, chunk.y, chunk.width, chunk.height)
 
-            val newCell = newGrid.cell(x, y)
+            for (y in 0 until chunk.height) for (x in 0 until chunk.width) {
+                val cell = chunk.cell(x-1, y)
+                val aliveNeighbours = chunk.aliveNeighbours(x, y)
 
-            newCell.state = State.DEAD
+                val newCell = newChunk.cell(x, y)
 
-            if (aliveNeighbours == 3 || (aliveNeighbours == 2 && cell.state == State.ALIVE)) {
-                newCell.state = State.ALIVE;
+//                newCell.state = State.DEAD
+//                if (aliveNeighbours == 3 || (aliveNeighbours == 2 && cell.state == State.ALIVE)) {
+//                    newCell.state = State.ALIVE;
+//                }
+                if (cell.state == State.ALIVE) {
+                    newCell.state = State.ALIVE;
+                }
             }
-        }
-        grid = newGrid;
-    }
 
-    fun print() {
-        grid.print()
+            nextWorld.add(newChunk)
+        }
+
+        return nextWorld
     }
 
 }

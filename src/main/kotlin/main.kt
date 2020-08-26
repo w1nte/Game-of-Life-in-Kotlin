@@ -1,14 +1,23 @@
 
 fun main(args: Array<String>) {
-    val loader = ChunkLoader()
-    val chunk = Chunk(loader, 0, 0, 80, 30)
-    loader.add(chunk)
-    val game = Game(chunk)
+    val game = Game()
+    val startWorld = World()
 
+    for (y in -1..1) for (x in -1..1) {
+        val chunk = Chunk(startWorld, x, y, 128, 64)
+        startWorld.add(chunk)
+        if (y == 0 && x == 0) {
+            for (i in 0 until chunk.height) for (j in 0 until chunk.width) {
+                chunk.cell(j, i).state = State.rand()
+            }
+        }
+    }
+
+    var nextWorld = game.next(startWorld)
     for (i in 0..10000) {
-        game.print()
+        nextWorld.get(1, 0).print()
         println()
-        game.run()
-        Thread.sleep(30)
+        nextWorld = game.next(nextWorld)
+        Thread.sleep(100)
     }
 }

@@ -3,7 +3,8 @@ open class Grid(val width: Int, val height: Int) {
         val OUTSIDE = Cell(State.VOID)
     }
 
-    private val grid: Array<Array<Cell>> = Array(height) { Array(width) { Cell(State.rand()) } }
+    private val grid: Array<Array<Cell>> = Array(height) { Array(width) { Cell(State.DEAD) } }
+
 
     open fun cell(x: Int, y: Int): Cell {
         if (x in 0 until width && y in 0 until height) {
