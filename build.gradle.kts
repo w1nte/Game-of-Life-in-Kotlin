@@ -28,11 +28,15 @@ tasks.jar {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation(kotlin("test-junit"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
 }
 
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 application {

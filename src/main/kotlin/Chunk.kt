@@ -1,5 +1,5 @@
 class Chunk(
-    val world: World,
+    private val world: World,
     val x: Int,
     val y: Int,
     width: Int,
@@ -26,8 +26,8 @@ class Chunk(
     }
 
     private fun resolveChunk(x: Int, y: Int): Chunk {
-        val chunkX = if (x < 0) -1 else (if (x >= width) 1 else 0)
-        val chunkY = if (y < 0) -1 else (if (y >= height) 1 else 0)
+        val chunkX = this.x + if (x < 0) -1 else (if (x >= width) 1 else 0)
+        val chunkY = this.y + if (y < 0) -1 else (if (y >= height) 1 else 0)
 
         return world.get(chunkX, chunkY)
     }

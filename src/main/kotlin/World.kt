@@ -1,4 +1,7 @@
-class World {
+class World(
+    val chunkWidth: Int,
+    val chunkHeight: Int
+) {
 
     private val chunks: HashMap<Int, HashMap<Int, Chunk>> = HashMap()
 
@@ -7,13 +10,15 @@ class World {
         return if (chunks.containsKey(y) && chunks[y]?.containsKey(x)!!) {
             chunks[y]?.get(x)!!
         } else {
-            val newChunk = Chunk(this, x, y, 128, 64)
+            val newChunk = Chunk(this, x, y, chunkWidth, chunkHeight)
             add(newChunk)
             get(x, y)
         }
     }
 
     fun add(chunk: Chunk) {
+        assert(chunk.width == chunkWidth && chunk.height == chunkHeight)
+
         if (chunks.containsKey(chunk.y)) {
             chunks[chunk.y]?.put(chunk.x, chunk)
         } else {
